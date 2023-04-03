@@ -1,46 +1,30 @@
 package com.bingo.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "mainboards")
+@Table(name = "mainboard")
 public class Mainboard implements Serializable {
 
     @Id
-    @Column(name = "mainboard_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Integer id;
 
     @Column(name = "number_played")
     private Integer numberPlayed;
 
-    @Column(name = "game_id")
-    private Integer gameId;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getNumberPlayed() {
-        return numberPlayed;
-    }
-
-    public void setNumberPlayed(Integer numberPlayed) {
-        this.numberPlayed = numberPlayed;
-    }
-
-    public Integer getGameId() {
-        return gameId;
-    }
-
-    public void setGameId(Integer gameId) {
-        this.gameId = gameId;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "game_id", referencedColumnName = "id")
+    @JsonBackReference(value = "gameRefMain")
+    private Game game;
 }

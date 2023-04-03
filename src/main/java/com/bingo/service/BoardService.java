@@ -1,29 +1,26 @@
 package com.bingo.service;
 
-import com.bingo.dao.GameDao;
-import com.bingo.domain.Game;
+import com.bingo.dao.BoardDao;
+import com.bingo.domain.Board;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 
 @Service
-public class GameService implements IGameService{
+public class BoardService implements IBoardService {
 
     @Autowired
-    private GameDao gameDao;
-
+    private BoardDao boardDao;
     @Override
     @Transactional(readOnly = true)
-    public List<Game> list() {
-        return (List<Game>) gameDao.findAll() ;
+    public List<Board> list() {
+        return (List<Board>) boardDao.findAll() ;
     }
-
     @Override
     @Transactional
-    public Game save(Game game) {
-        return gameDao.save(game);
+    public Board save(Board board) {
+        return boardDao.save(board);
     }
 
 }
